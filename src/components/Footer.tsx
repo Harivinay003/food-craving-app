@@ -3,7 +3,11 @@
 import * as React from 'react';
 
 export function Footer() {
-  const [year] = React.useState(new Date().getFullYear());
+  const [year, setYear] = React.useState('');
+
+  React.useEffect(() => {
+    setYear(String(new Date().getFullYear()));
+  }, []);
 
   return (
     <footer className="py-6 md:px-8 md:py-0 bg-background/95">
