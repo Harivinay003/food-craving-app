@@ -31,7 +31,7 @@ function MenuItemCard({ item }: { item: MenuItem }) {
         alt={item.name}
         width={300}
         height={200}
-        data-ai-hint="food dish"
+        data-ai-hint="indian food"
         className="w-full h-48 object-cover"
       />
       <CardHeader>
@@ -46,7 +46,7 @@ function MenuItemCard({ item }: { item: MenuItem }) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <p className="text-lg font-semibold text-primary">${item.price.toFixed(2)}</p>
+        <p className="text-lg font-semibold text-primary">₹{item.price.toFixed(2)}</p>
         <Button onClick={handleAddToCart} className="bg-accent hover:bg-accent/90 text-accent-foreground">
             <PlusCircle className="mr-2 h-4 w-4"/>
             Add to Cart
@@ -85,7 +85,7 @@ export default function MenuPage({ params }: { params: { id: string } }) {
                 alt={restaurant.name}
                 width={1200}
                 height={400}
-                data-ai-hint="restaurant interior"
+                data-ai-hint="indian restaurant"
                 className="w-full h-64 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

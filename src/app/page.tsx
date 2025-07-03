@@ -33,7 +33,7 @@ function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
             alt={restaurant.name}
             width={400}
             height={250}
-            data-ai-hint="restaurant food"
+            data-ai-hint="indian restaurant"
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -88,7 +88,7 @@ export default function HomePage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-12">
-        <h1 className="text-5xl font-headline tracking-wider text-primary">Welcome to Menu Maestro</h1>
+        <h1 className="text-5xl font-headline tracking-wider text-primary">Welcome to Food Cravings</h1>
         <p className="text-xl text-muted-foreground mt-2">Discover your next favorite meal.</p>
       </header>
       

@@ -51,7 +51,7 @@ export function AiRecommender() {
     try {
       // For demonstration, we use a hardcoded order history.
       // In a real application, this would be fetched for the logged-in user.
-      const orderHistory = 'Pizza, Burger, Salad, Pasta, Sushi, Tacos';
+      const orderHistory = 'Butter Chicken, Biryani, Dosa, Paneer Tikka, Samosa';
       const result = await foodRecommendation({
         dietaryPreferences: data.dietaryPreferences,
         orderHistory,

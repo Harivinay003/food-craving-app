@@ -15,7 +15,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2">
           <UtensilsCrossed className="h-8 w-8 text-primary" />
           <span className="text-2xl font-bold font-headline tracking-wide">
-            Menu Maestro
+            Food Cravings
           </span>
         </Link>
         <Button

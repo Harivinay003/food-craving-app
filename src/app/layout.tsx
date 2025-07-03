@@ -8,8 +8,8 @@ import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Menu Maestro',
-  description: 'Your guide to culinary delight.',
+  title: 'Food Cravings',
+  description: 'Your guide to Indian culinary delight.',
 };
 
 export default function RootLayout({

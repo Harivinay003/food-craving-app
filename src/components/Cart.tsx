@@ -49,13 +49,13 @@ export function Cart() {
                       alt={item.name}
                       width={80}
                       height={80}
-                      data-ai-hint="food item"
+                      data-ai-hint="indian food"
                       className="rounded-md object-cover"
                     />
                     <div className="flex-1">
                       <h4 className="font-semibold">{item.name}</h4>
                       <p className="text-sm text-muted-foreground">
-                        ${item.price.toFixed(2)}
+                        ₹{item.price.toFixed(2)}
                       </p>
                       <div className="mt-2 flex items-center gap-2">
                         <Button
@@ -79,7 +79,7 @@ export function Cart() {
                     </div>
                     <div className="text-right">
                        <p className="font-semibold">
-                        ${(item.price * item.quantity).toFixed(2)}
+                       ₹{(item.price * item.quantity).toFixed(2)}
                        </p>
                        <Button
                         variant="ghost"
@@ -98,7 +98,7 @@ export function Cart() {
                 <div className="w-full space-y-4">
                     <div className="flex justify-between font-bold text-lg">
                         <span>Total</span>
-                        <span>${totalPrice.toFixed(2)}</span>
+                        <span>₹{totalPrice.toFixed(2)}</span>
                     </div>
                      <Button asChild size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                         <Link href="/checkout" onClick={() => setCartOpen(false)}>Proceed to Checkout</Link>

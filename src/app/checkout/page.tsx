@@ -110,7 +110,7 @@ export default function CheckoutPage() {
                   )} />
                 </div>
                  <Button type="submit" size="lg" className="w-full mt-6 bg-accent hover:bg-accent/90 text-accent-foreground" disabled={isSubmitting}>
-                  {isSubmitting ? 'Placing Order...' : `Place Order - $${totalPrice.toFixed(2)}`}
+                  {isSubmitting ? 'Placing Order...' : `Place Order - ₹${totalPrice.toFixed(2)}`}
                 </Button>
               </form>
             </Form>
@@ -128,13 +128,13 @@ export default function CheckoutPage() {
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
-                        <Image src={item.image} alt={item.name} width={64} height={64} data-ai-hint="food item" className="rounded-md object-cover"/>
+                        <Image src={item.image} alt={item.name} width={64} height={64} data-ai-hint="indian food" className="rounded-md object-cover"/>
                         <div>
                             <p className="font-semibold">{item.name}</p>
                             <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
                         </div>
                     </div>
-                    <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-medium">₹{(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                 ))}
               </div>
@@ -144,7 +144,7 @@ export default function CheckoutPage() {
             <Separator />
             <div className="w-full flex justify-between text-xl font-bold">
               <span>Total</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>₹{totalPrice.toFixed(2)}</span>
             </div>
           </CardFooter>
         </Card>
