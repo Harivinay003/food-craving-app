@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
@@ -19,6 +20,12 @@ import { MinusCircle, PlusCircle, Trash2, ShoppingCart } from 'lucide-react';
 import { Badge } from './ui/badge';
 
 export function Cart() {
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   const {
     items,
     totalPrice,
@@ -28,6 +35,10 @@ export function Cart() {
     isCartOpen,
     setCartOpen,
   } = useCart();
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setCartOpen}>

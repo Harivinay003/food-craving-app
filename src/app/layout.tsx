@@ -35,6 +35,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <Cart />
         </CartProvider>
         <Toaster />
       </body>
