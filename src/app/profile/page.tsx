@@ -49,16 +49,18 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const { isAuthenticated, user, updateUser } = useAuth();
 
+  const tab = searchParams.get('tab');
   const [activeTab, setActiveTab] = React.useState('account');
   const [selectedState, setSelectedState] = React.useState(user?.state || '');
   
   React.useEffect(() => {
-    const tabFromUrl = searchParams.get('tab');
     const validTabs = ['account', 'location', 'wallet', 'payment'];
-    if (tabFromUrl && validTabs.includes(tabFromUrl)) {
-      setActiveTab(tabFromUrl);
+    if (tab && validTabs.includes(tab)) {
+      setActiveTab(tab);
+    } else {
+      setActiveTab('account');
     }
-  }, [searchParams]);
+  }, [tab]);
   
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -234,7 +236,7 @@ export default function ProfilePage() {
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select your city" />
-                            </SelectTrigger>
+                            </Trigger>
                           </FormControl>
                           <SelectContent>
                             {cities.map((cityName) => (
