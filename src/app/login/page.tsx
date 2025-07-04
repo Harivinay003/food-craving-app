@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context/AuthContext';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
@@ -35,6 +36,7 @@ const loginSchema = z.object({
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { login } = useAuth();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -47,14 +49,19 @@ export default function LoginPage() {
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
     setIsSubmitting(true);
-    console.log('Login credentials:', values);
     // Simulate API call
     setTimeout(() => {
+      // In a real app, you would get user data from your backend
+      const userData = {
+        name: 'John Doe', // Mock name
+        email: values.email,
+      };
+      login(userData);
       toast({
         title: 'Login Successful!',
-        description: `Welcome back!`,
+        description: `Welcome back, ${userData.name}!`,
       });
-      router.push('/');
+      // The login function in AuthContext will handle redirection
       setIsSubmitting(false);
     }, 1000);
   };
