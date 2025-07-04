@@ -49,11 +49,16 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const { isAuthenticated, user, updateUser } = useAuth();
 
-  const tabFromUrl = searchParams.get('tab');
-  const validTabs = ['account', 'location', 'wallet', 'payment'];
-  const initialTab = tabFromUrl && validTabs.includes(tabFromUrl) ? tabFromUrl : 'account';
-
+  const [activeTab, setActiveTab] = React.useState('account');
   const [selectedState, setSelectedState] = React.useState(user?.state || '');
+  
+  React.useEffect(() => {
+    const tabFromUrl = searchParams.get('tab');
+    const validTabs = ['account', 'location', 'wallet', 'payment'];
+    if (tabFromUrl && validTabs.includes(tabFromUrl)) {
+      setActiveTab(tabFromUrl);
+    }
+  }, [searchParams]);
   
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -104,6 +109,11 @@ export default function ProfilePage() {
     toast({ title: 'Success!', description: 'Your location has been updated.' });
   };
 
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    router.push(`/profile?tab=${value}`, { scroll: false });
+  }
+
   const states = Object.keys(indianStates);
   const cities = selectedState ? indianStates[selectedState] : [];
 
@@ -116,7 +126,7 @@ export default function ProfilePage() {
       <h1 className="text-4xl font-headline mb-4">My Profile</h1>
       <p className="text-muted-foreground mb-8">Manage your account settings, location, wallet, and payment methods.</p>
       
-      <Tabs defaultValue={initialTab} className="w-full">
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 md:w-auto md:max-w-[60rem]">
           <TabsTrigger value="account"><User className="mr-2"/>Account</TabsTrigger>
           <TabsTrigger value="location"><MapPin className="mr-2"/>Location</TabsTrigger>
