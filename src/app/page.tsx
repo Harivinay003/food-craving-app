@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star, Utensils, Search, Filter, MapPin, Loader2 } from 'lucide-react';
+import { Star, Utensils, Search, Filter, MapPin, Loader2, Leaf, Drumstick } from 'lucide-react';
 
 import { restaurants, Restaurant } from '@/lib/data';
 import { cn, getDistance } from '@/lib/utils';
@@ -80,6 +80,7 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [cuisineFilter, setCuisineFilter] = React.useState('all');
   const [priceFilter, setPriceFilter] = React.useState('all');
+  const [dietaryFilter, setDietaryFilter] = React.useState('all');
   
   const { position, loading: locationLoading, error: locationError, locate } = useGeolocation();
   const { isAuthenticated, user } = useAuth();
@@ -129,10 +130,14 @@ export default function HomePage() {
         const matchesSearch = restaurant.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesCuisine = cuisineFilter === 'all' || restaurant.cuisine === cuisineFilter;
         const matchesPrice = priceFilter === 'all' || restaurant.priceRange === priceFilter;
-        return matchesSearch && matchesCuisine && matchesPrice;
+        const matchesDietary = dietaryFilter === 'all' ||
+            (dietaryFilter === 'veg' && restaurant.menu.some(item => item.dietaryTags.includes('vegetarian'))) ||
+            (dietaryFilter === 'non-veg' && restaurant.menu.some(item => item.dietaryTags.includes('non-veg')));
+            
+        return matchesSearch && matchesCuisine && matchesPrice && matchesDietary;
     });
 
-  }, [searchQuery, cuisineFilter, priceFilter, isLiveSortActive, position, isAuthenticated, user]);
+  }, [searchQuery, cuisineFilter, priceFilter, dietaryFilter, isLiveSortActive, position, isAuthenticated, user]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +153,7 @@ export default function HomePage() {
       </div>
 
       <Card className="mb-8 p-6 shadow-lg bg-card/80 backdrop-blur-sm">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
             <div className="md:col-span-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
@@ -161,7 +166,6 @@ export default function HomePage() {
                 className="pl-10"
               />
             </div>
-          <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select value={cuisineFilter} onValueChange={(value) => {
                 setCuisineFilter(value);
                 setLiveSortActive(false);
@@ -196,7 +200,28 @@ export default function HomePage() {
                 ))}
               </SelectContent>
             </Select>
-          </div>
+             <Select value={dietaryFilter} onValueChange={(value) => {
+                setDietaryFilter(value);
+                setLiveSortActive(false);
+            }}>
+              <SelectTrigger>
+                 <Filter className="h-4 w-4 mr-2" />
+                <SelectValue placeholder="Dietary" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="veg">
+                    <div className="flex items-center gap-2">
+                        <Leaf className="h-4 w-4 text-chart-2"/> <span>Vegetarian</span>
+                    </div>
+                </SelectItem>
+                <SelectItem value="non-veg">
+                    <div className="flex items-center gap-2">
+                        <Drumstick className="h-4 w-4 text-destructive"/> <span>Non-Vegetarian</span>
+                    </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
           <div className="md:col-span-1">
             <Button onClick={handleLocate} disabled={locationLoading && isLiveSortActive} className="w-full">
                 {locationLoading && isLiveSortActive ? (
