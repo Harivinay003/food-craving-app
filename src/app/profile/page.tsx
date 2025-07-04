@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -49,18 +50,8 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const { isAuthenticated, user, updateUser } = useAuth();
 
-  const tab = searchParams.get('tab');
-  const [activeTab, setActiveTab] = React.useState('account');
+  const tab = searchParams.get('tab') || 'account';
   const [selectedState, setSelectedState] = React.useState(user?.state || '');
-  
-  React.useEffect(() => {
-    const validTabs = ['account', 'location', 'wallet', 'payment'];
-    if (tab && validTabs.includes(tab)) {
-      setActiveTab(tab);
-    } else {
-      setActiveTab('account');
-    }
-  }, [tab]);
   
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -112,7 +103,6 @@ export default function ProfilePage() {
   };
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value);
     router.push(`/profile?tab=${value}`, { scroll: false });
   }
 
@@ -128,7 +118,7 @@ export default function ProfilePage() {
       <h1 className="text-4xl font-headline mb-4">My Profile</h1>
       <p className="text-muted-foreground mb-8">Manage your account settings, location, wallet, and payment methods.</p>
       
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+      <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 md:w-auto md:max-w-[60rem]">
           <TabsTrigger value="account"><User className="mr-2"/>Account</TabsTrigger>
           <TabsTrigger value="location"><MapPin className="mr-2"/>Location</TabsTrigger>
@@ -236,7 +226,7 @@ export default function ProfilePage() {
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select your city" />
-                            </Trigger>
+                            </SelectTrigger>
                           </FormControl>
                           <SelectContent>
                             {cities.map((cityName) => (
