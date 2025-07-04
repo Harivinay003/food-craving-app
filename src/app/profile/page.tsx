@@ -47,7 +47,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
   const { isAuthenticated, user, updateUser } = useAuth();
-  const [selectedState, setSelectedState] = React.useState('');
+  const [selectedState, setSelectedState] = React.useState(user?.state || '');
   
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
   const locationForm = useForm<z.infer<typeof locationSchema>>({
     resolver: zodResolver(locationSchema),
-    defaultValues: { state: '', city: '' },
+    defaultValues: { state: user?.state || '', city: user?.city || '' },
   });
 
   const onNameSubmit = (data: z.infer<typeof nameSchema>) => {
@@ -94,7 +94,7 @@ export default function ProfilePage() {
   
   const onLocationSubmit = (data: z.infer<typeof locationSchema>) => {
     // In a real app, you would geocode this to lat/lng and save it.
-    console.log('Location updated:', data);
+    updateUser({ state: data.state, city: data.city });
     toast({ title: 'Success!', description: 'Your location has been updated.' });
   };
 

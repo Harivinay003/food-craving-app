@@ -57,6 +57,8 @@ export default function LoginPage() {
         email: values.email,
         latitude: 19.0760, // Default to Mumbai for demo
         longitude: 72.8777,
+        city: 'Mumbai',
+        state: 'Maharashtra',
       };
       login(userData);
       toast({

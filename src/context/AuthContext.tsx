@@ -9,6 +9,8 @@ interface User {
   email: string;
   latitude?: number;
   longitude?: number;
+  state?: string;
+  city?: string;
 }
 
 interface AuthContextType {
