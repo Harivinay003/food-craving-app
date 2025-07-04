@@ -55,6 +55,8 @@ export default function LoginPage() {
       const userData = {
         name: 'John Doe', // Mock name
         email: values.email,
+        latitude: 19.0760, // Default to Mumbai for demo
+        longitude: 72.8777,
       };
       login(userData);
       toast({

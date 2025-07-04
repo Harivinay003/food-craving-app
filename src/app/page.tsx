@@ -20,6 +20,7 @@ import {
 import { AiRecommender } from '@/components/AiRecommender';
 import { Badge } from '@/components/ui/badge';
 import { useGeolocation } from '@/hooks/use-geolocation';
+import { useAuth } from '@/context/AuthContext';
 
 // Add distance to the props
 function RestaurantCard({ restaurant, distance }: { restaurant: Restaurant; distance?: number }) {
@@ -81,8 +82,8 @@ export default function HomePage() {
   const [priceFilter, setPriceFilter] = React.useState('all');
   
   const { position, loading: locationLoading, error: locationError, locate } = useGeolocation();
-  const [displayedRestaurants, setDisplayedRestaurants] = React.useState<RestaurantWithDistance[]>(restaurants);
-  const [isSortedByDistance, setIsSortedByDistance] = React.useState(false);
+  const { isAuthenticated, user } = useAuth();
+  const [isLiveSortActive, setLiveSortActive] = React.useState(false);
 
 
   const cuisines = React.useMemo(() => {
@@ -96,38 +97,42 @@ export default function HomePage() {
   }, []);
 
   const handleLocate = () => {
-    // Clear other filters to ensure all nearby restaurants are shown
-    setSearchQuery('');
-    setCuisineFilter('all');
-    setPriceFilter('all');
     locate();
-    setIsSortedByDistance(true);
+    setLiveSortActive(true);
   }
 
-  React.useEffect(() => {
-    let restaurantsToDisplay: RestaurantWithDistance[] = restaurants.filter((restaurant) => {
-      const matchesSearch = restaurant.name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase());
-      const matchesCuisine =
-        cuisineFilter === 'all' || restaurant.cuisine === cuisineFilter;
-      const matchesPrice =
-        priceFilter === 'all' || restaurant.priceRange === priceFilter;
-      return matchesSearch && matchesCuisine && matchesPrice;
-    });
+  const displayedRestaurants = React.useMemo(() => {
+    let restaurantsToDisplay: RestaurantWithDistance[] = [...restaurants];
 
-    if (position && isSortedByDistance) {
+    // Determine location and apply distance sort if applicable
+    let locationToSortBy: { latitude: number; longitude: number } | null = null;
+    
+    if (isLiveSortActive && position) {
+      // Prioritize live GPS location
+      locationToSortBy = { latitude: position.coords.latitude, longitude: position.coords.longitude };
+    } else if (!isLiveSortActive && isAuthenticated && user?.latitude && user?.longitude) {
+      // Fallback to logged-in user's profile location
+      locationToSortBy = { latitude: user.latitude, longitude: user.longitude };
+    }
+
+    if (locationToSortBy) {
         restaurantsToDisplay = restaurantsToDisplay.map(r => ({
             ...r,
-            distance: getDistance(position.coords.latitude, position.coords.longitude, r.latitude, r.longitude)
+            distance: getDistance(locationToSortBy!.latitude, locationToSortBy!.longitude, r.latitude, r.longitude)
         }))
         .filter(r => (r.distance ?? Infinity) <= 30)
         .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
+    
+    // Apply other filters on top of the (potentially) sorted list
+    return restaurantsToDisplay.filter(restaurant => {
+        const matchesSearch = restaurant.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCuisine = cuisineFilter === 'all' || restaurant.cuisine === cuisineFilter;
+        const matchesPrice = priceFilter === 'all' || restaurant.priceRange === priceFilter;
+        return matchesSearch && matchesCuisine && matchesPrice;
+    });
 
-    setDisplayedRestaurants(restaurantsToDisplay);
-
-  }, [searchQuery, cuisineFilter, priceFilter, position, isSortedByDistance]);
+  }, [searchQuery, cuisineFilter, priceFilter, isLiveSortActive, position, isAuthenticated, user]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -151,7 +156,7 @@ export default function HomePage() {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  setIsSortedByDistance(false);
+                  setLiveSortActive(false);
                 }}
                 className="pl-10"
               />
@@ -159,7 +164,7 @@ export default function HomePage() {
           <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select value={cuisineFilter} onValueChange={(value) => {
                 setCuisineFilter(value);
-                setIsSortedByDistance(false);
+                setLiveSortActive(false);
             }}>
               <SelectTrigger>
                 <Filter className="h-4 w-4 mr-2" />
@@ -176,7 +181,7 @@ export default function HomePage() {
             </Select>
             <Select value={priceFilter} onValueChange={(value) => {
                 setPriceFilter(value);
-                setIsSortedByDistance(false);
+                setLiveSortActive(false);
             }}>
               <SelectTrigger>
                  <Filter className="h-4 w-4 mr-2" />
@@ -193,17 +198,17 @@ export default function HomePage() {
             </Select>
           </div>
           <div className="md:col-span-1">
-            <Button onClick={handleLocate} disabled={locationLoading} className="w-full">
-                {locationLoading ? (
+            <Button onClick={handleLocate} disabled={locationLoading && isLiveSortActive} className="w-full">
+                {locationLoading && isLiveSortActive ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                     <MapPin className="mr-2 h-4 w-4" />
                 )}
-                {locationLoading ? 'Locating...' : 'Near Me'}
+                {locationLoading && isLiveSortActive ? 'Locating...' : 'Near Me'}
             </Button>
           </div>
         </div>
-         {locationError && <p className="text-destructive text-center mt-4">Error: {locationError.message}. Please enable location services.</p>}
+         {locationError && isLiveSortActive && <p className="text-destructive text-center mt-4">Error: {locationError.message}. Please enable location services.</p>}
       </Card>
 
       {displayedRestaurants.length > 0 ? (

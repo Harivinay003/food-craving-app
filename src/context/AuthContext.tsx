@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 interface User {
   name: string;
   email: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 interface AuthContextType {
