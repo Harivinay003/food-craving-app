@@ -128,7 +128,7 @@ export default function CheckoutPage() {
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
-                        <Image src={item.image} alt={item.name} width={64} height={64} data-ai-hint="indian food" className="rounded-md object-cover"/>
+                        <Image src={item.image} alt={item.name} width={64} height={64} data-ai-hint={item.hint} className="rounded-md object-cover"/>
                         <div>
                             <p className="font-semibold">{item.name}</p>
                             <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>

@@ -31,7 +31,7 @@ function MenuItemCard({ item }: { item: MenuItem }) {
         alt={item.name}
         width={300}
         height={200}
-        data-ai-hint="indian food"
+        data-ai-hint={item.hint}
         className="w-full h-48 object-cover"
       />
       <CardHeader>
@@ -85,7 +85,7 @@ export default function MenuPage({ params }: { params: { id: string } }) {
                 alt={restaurant.name}
                 width={1200}
                 height={400}
-                data-ai-hint="indian restaurant"
+                data-ai-hint={restaurant.hint}
                 className="w-full h-64 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

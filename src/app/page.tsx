@@ -20,9 +20,6 @@ import {
 import { AiRecommender } from '@/components/AiRecommender';
 import { Badge } from '@/components/ui/badge';
 
-const cuisines = [...new Set(restaurants.map((r) => r.cuisine))];
-const priceRanges = [...new Set(restaurants.map((r) => r.priceRange))].sort();
-
 function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
   return (
     <Link href={`/menu/${restaurant.id}`} className="group block">
@@ -33,7 +30,7 @@ function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
             alt={restaurant.name}
             width={400}
             height={250}
-            data-ai-hint="indian restaurant"
+            data-ai-hint={restaurant.hint}
             className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
@@ -71,6 +68,16 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [cuisineFilter, setCuisineFilter] = React.useState('all');
   const [priceFilter, setPriceFilter] = React.useState('all');
+
+  const cuisines = React.useMemo(() => {
+    const allCuisines = restaurants.map((r) => r.cuisine);
+    return [...new Set(allCuisines)].sort();
+  }, []);
+
+  const priceRanges = React.useMemo(() => {
+    const allPriceRanges = restaurants.map((r) => r.priceRange);
+    return [...new Set(allPriceRanges)].sort((a, b) => a.length - b.length);
+  }, []);
 
   const filteredRestaurants = React.useMemo(() => {
     return restaurants.filter((restaurant) => {

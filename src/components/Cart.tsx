@@ -60,7 +60,7 @@ export function Cart() {
                       alt={item.name}
                       width={80}
                       height={80}
-                      data-ai-hint="indian food"
+                      data-ai-hint={item.hint}
                       className="rounded-md object-cover"
                     />
                     <div className="flex-1">
