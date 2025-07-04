@@ -64,7 +64,7 @@ export function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button variant="outline" asChild className="hidden md:flex">
-                <Link href="/profile">
+                <Link href="/profile?tab=location">
                   <MapPin className="h-4 w-4" />
                   <span>{user?.city ?? 'Set Location'}</span>
                 </Link>
