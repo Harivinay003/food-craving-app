@@ -18,23 +18,32 @@ export function Header() {
             Food Cravings
           </span>
         </Link>
-        <Button
-          variant="outline"
-          size="icon"
-          className="relative rounded-full"
-          onClick={() => setCartOpen(true)}
-          aria-label={`Open cart with ${totalItems} items`}
-        >
-          <ShoppingCart className="h-5 w-5" />
-          {totalItems > 0 && (
-            <Badge
-              variant="default"
-              className="absolute -right-2 -top-2 h-6 w-6 justify-center rounded-full bg-accent text-accent-foreground p-0"
-            >
-              {totalItems}
-            </Badge>
-          )}
-        </Button>
+        <div className="flex items-center gap-2">
+           <Button variant="ghost" asChild>
+            <Link href="/login">Login</Link>
+          </Button>
+          <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+            <Link href="/register">Register</Link>
+          </Button>
+          <div className="mx-2 h-8 border-l border-border/70"></div>
+          <Button
+            variant="outline"
+            size="icon"
+            className="relative rounded-full"
+            onClick={() => setCartOpen(true)}
+            aria-label={`Open cart with ${totalItems} items`}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {totalItems > 0 && (
+              <Badge
+                variant="default"
+                className="absolute -right-2 -top-2 h-6 w-6 justify-center rounded-full bg-accent text-accent-foreground p-0"
+              >
+                {totalItems}
+              </Badge>
+            )}
+          </Button>
+        </div>
       </div>
     </header>
   );

@@ -46,7 +46,7 @@ function MenuItemCard({ item }: { item: MenuItem }) {
         </div>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <p className="text-lg font-semibold text-primary">₹{item.price.toFixed(2)}</p>
+        <p className="text-lg font-semibold text-primary">RS {item.price.toFixed(2)}</p>
         <Button onClick={handleAddToCart} className="bg-accent hover:bg-accent/90 text-accent-foreground">
             <PlusCircle className="mr-2 h-4 w-4"/>
             Add to Cart

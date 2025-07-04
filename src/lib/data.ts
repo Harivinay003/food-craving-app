@@ -12,7 +12,7 @@ export type Restaurant = {
   name: string;
   cuisine: string;
   rating: number;
-  priceRange: '₹' | '₹₹' | '₹₹₹' | '₹₹₹₹';
+  priceRange: 'RS' | 'RS RS' | 'RS RS RS';
   image: string;
   menu: MenuItem[];
 };
@@ -23,7 +23,7 @@ export const restaurants: Restaurant[] = [
     name: 'Mumbai Spice',
     cuisine: 'North Indian',
     rating: 5,
-    priceRange: '₹₹₹',
+    priceRange: 'RS RS RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '1-1', name: 'Butter Chicken', description: 'Grilled chicken in a rich, creamy tomato sauce.', price: 450, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'] },
@@ -36,7 +36,7 @@ export const restaurants: Restaurant[] = [
     name: 'Delhi Darbar',
     cuisine: 'Mughlai',
     rating: 4,
-    priceRange: '₹₹',
+    priceRange: 'RS RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '2-1', name: 'Chicken Biryani', description: 'Aromatic basmati rice with spiced chicken.', price: 420, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'] },
@@ -49,7 +49,7 @@ export const restaurants: Restaurant[] = [
     name: 'Chennai Express',
     cuisine: 'South Indian',
     rating: 4,
-    priceRange: '₹',
+    priceRange: 'RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '3-1', name: 'Masala Dosa', description: 'Crispy rice crepe filled with spiced potatoes.', price: 150, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'vegan', 'gluten-free'] },
@@ -62,7 +62,7 @@ export const restaurants: Restaurant[] = [
     name: 'Kolkata Kitchen',
     cuisine: 'Bengali',
     rating: 5,
-    priceRange: '₹₹',
+    priceRange: 'RS RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '4-1', name: 'Macher Jhol', description: 'Traditional Bengali fish curry.', price: 350, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'] },
@@ -75,7 +75,7 @@ export const restaurants: Restaurant[] = [
     name: 'Punjabi Tadka',
     cuisine: 'Punjabi',
     rating: 4,
-    priceRange: '₹₹₹',
+    priceRange: 'RS RS RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '5-1', name: 'Amritsari Kulcha', description: 'Stuffed flatbread served with chole (chickpea curry).', price: 300, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'] },
@@ -88,7 +88,7 @@ export const restaurants: Restaurant[] = [
     name: 'Goan Paradise',
     cuisine: 'Goan',
     rating: 5,
-    priceRange: '₹₹₹',
+    priceRange: 'RS RS RS',
     image: 'https://placehold.co/400x250.png',
     menu: [
       { id: '6-1', name: 'Fish Curry Rice', description: 'Classic Goan fish curry with steamed rice.', price: 400, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'] },
