@@ -96,6 +96,10 @@ export default function HomePage() {
   }, []);
 
   const handleLocate = () => {
+    // Clear other filters to ensure all nearby restaurants are shown
+    setSearchQuery('');
+    setCuisineFilter('all');
+    setPriceFilter('all');
     locate();
     setIsSortedByDistance(true);
   }
