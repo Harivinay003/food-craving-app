@@ -13,7 +13,9 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
-import { User, KeyRound, Wallet, CreditCard, PlusCircle } from 'lucide-react';
+import { User, KeyRound, Wallet, CreditCard, PlusCircle, MapPin } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { indianStates } from '@/lib/locationData';
 
 const nameSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -36,10 +38,16 @@ const paymentSchema = z.object({
     cvv: z.string().regex(/^\d{3,4}$/, 'Please enter a valid CVV.'),
 });
 
+const locationSchema = z.object({
+  state: z.string().min(1, 'Please select a state.'),
+  city: z.string().min(1, 'Please select a city.'),
+});
+
 export default function ProfilePage() {
   const router = useRouter();
   const { toast } = useToast();
   const { isAuthenticated, user, updateUser } = useAuth();
+  const [selectedState, setSelectedState] = React.useState('');
   
   React.useEffect(() => {
     if (!isAuthenticated) {
@@ -62,6 +70,11 @@ export default function ProfilePage() {
       defaultValues: { cardNumber: '', expiryDate: '', cvv: '' },
   });
 
+  const locationForm = useForm<z.infer<typeof locationSchema>>({
+    resolver: zodResolver(locationSchema),
+    defaultValues: { state: '', city: '' },
+  });
+
   const onNameSubmit = (data: z.infer<typeof nameSchema>) => {
     updateUser({ name: data.name });
     toast({ title: 'Success!', description: 'Your name has been updated.' });
@@ -78,6 +91,15 @@ export default function ProfilePage() {
       toast({ title: 'Success!', description: 'Your payment method has been added.' });
       paymentForm.reset();
   }
+  
+  const onLocationSubmit = (data: z.infer<typeof locationSchema>) => {
+    // In a real app, you would geocode this to lat/lng and save it.
+    console.log('Location updated:', data);
+    toast({ title: 'Success!', description: 'Your location has been updated.' });
+  };
+
+  const states = Object.keys(indianStates);
+  const cities = selectedState ? indianStates[selectedState] : [];
 
   if (!isAuthenticated) {
     return null; // or a loading spinner while redirecting
@@ -86,11 +108,12 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-headline mb-4">My Profile</h1>
-      <p className="text-muted-foreground mb-8">Manage your account settings, wallet, and payment methods.</p>
+      <p className="text-muted-foreground mb-8">Manage your account settings, location, wallet, and payment methods.</p>
       
       <Tabs defaultValue="account" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 md:w-[40rem]">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 md:w-auto md:max-w-[60rem]">
           <TabsTrigger value="account"><User className="mr-2"/>Account</TabsTrigger>
+          <TabsTrigger value="location"><MapPin className="mr-2"/>Location</TabsTrigger>
           <TabsTrigger value="wallet"><Wallet className="mr-2"/>Wallet</TabsTrigger>
           <TabsTrigger value="payment"><CreditCard className="mr-2"/>Payment</TabsTrigger>
         </TabsList>
@@ -144,6 +167,70 @@ export default function ProfilePage() {
                     </FormItem>
                   )} />
                   <Button type="submit">Update Password</Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="location">
+          <Card>
+            <CardHeader>
+              <CardTitle>Delivery Location</CardTitle>
+              <CardDescription>Set your default location for faster restaurant discovery.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Form {...locationForm}>
+                <form onSubmit={locationForm.handleSubmit(onLocationSubmit)} className="space-y-4 md:w-1/2">
+                  <FormField
+                    control={locationForm.control}
+                    name="state"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>State</FormLabel>
+                        <Select onValueChange={(value) => {
+                          field.onChange(value);
+                          setSelectedState(value);
+                          locationForm.resetField('city');
+                        }} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select your state" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {states.map((stateName) => (
+                              <SelectItem key={stateName} value={stateName}>{stateName}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={locationForm.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>City</FormLabel>
+                        <Select onValueChange={field.onChange} value={field.value} disabled={!selectedState}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select your city" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {cities.map((cityName) => (
+                              <SelectItem key={cityName} value={cityName}>{cityName}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">Save Location</Button>
                 </form>
               </Form>
             </CardContent>
