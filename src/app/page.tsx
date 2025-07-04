@@ -120,7 +120,9 @@ export default function HomePage() {
         restaurantsToDisplay = restaurantsToDisplay.map(r => ({
             ...r,
             distance: getDistance(position.coords.latitude, position.coords.longitude, r.latitude, r.longitude)
-        })).sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
+        }))
+        .filter(r => (r.distance ?? Infinity) <= 30)
+        .sort((a, b) => (a.distance ?? Infinity) - (b.distance ?? Infinity));
     }
 
     setDisplayedRestaurants(restaurantsToDisplay);
