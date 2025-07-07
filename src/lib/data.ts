@@ -33,9 +33,9 @@ export const restaurants: Restaurant[] = [
     latitude: 19.0760,
     longitude: 72.8777,
     menu: [
-      { id: '1-1', name: 'Butter Chicken', description: 'Grilled chicken in a rich, creamy tomato sauce.', price: 450, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'butter chicken' },
-      { id: '1-2', name: 'Paneer Tikka Masala', description: 'Marinated paneer cheese in a spiced curry.', price: 380, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'paneer tikka' },
-      { id: '1-3', name: 'Dal Makhani', description: 'Creamy black lentils cooked with butter and spices.', price: 320, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'dal makhani' },
+      { id: '1-1', name: 'Samosa Chaat', description: 'Crushed samosas with yogurt, tamarind chutney, and spices.', price: 180, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'samosa chaat' },
+      { id: '1-2', name: 'Aloo Tikki', description: 'Spiced potato patties, shallow-fried until golden brown.', price: 150, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'gluten-free'], hint: 'aloo tikki' },
+      { id: '1-3', name: 'Chicken 65', description: 'Spicy, deep-fried chicken chunks bursting with flavor.', price: 280, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'chicken starter' },
     ],
   },
   {
@@ -49,9 +49,9 @@ export const restaurants: Restaurant[] = [
     latitude: 28.7041,
     longitude: 77.1025,
     menu: [
-      { id: '2-1', name: 'Chicken Biryani', description: 'Aromatic basmati rice with spiced chicken.', price: 420, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'chicken biryani' },
-      { id: '2-2', name: 'Mutton Korma', description: 'Tender mutton in a creamy, nutty curry.', price: 550, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'mutton korma' },
-      { id: '2-3', name: 'Shahi Paneer', description: 'Royal cottage cheese curry in a rich, creamy gravy.', price: 400, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'shahi paneer' },
+      { id: '2-1', name: 'Seekh Kebab', description: 'Minced lamb mixed with spices, skewered and grilled.', price: 350, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg', 'gluten-free'], hint: 'seekh kebab' },
+      { id: '2-2', name: 'Malai Paneer Tikka', description: 'Creamy cottage cheese cubes marinated and grilled.', price: 320, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'paneer tikka' },
+      { id: '2-3', name: 'Dahi Bhalla', description: 'Soft lentil dumplings soaked in creamy yogurt.', price: 160, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'dahi bhalla' },
     ],
   },
   {
@@ -65,9 +65,9 @@ export const restaurants: Restaurant[] = [
     latitude: 13.0827,
     longitude: 80.2707,
     menu: [
-      { id: '3-1', name: 'Masala Dosa', description: 'Crispy rice crepe filled with spiced potatoes.', price: 150, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'vegan', 'gluten-free'], hint: 'masala dosa' },
-      { id: '3-2', name: 'Idli Sambar', description: 'Steamed rice cakes served with lentil soup.', price: 120, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'vegan', 'gluten-free'], hint: 'idli sambar' },
-      { id: '3-3', name: 'Pongal', description: 'Savory rice and lentil porridge.', price: 180, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'gluten-free'], hint: 'pongal food' },
+      { id: '3-1', name: 'Medu Vada', description: 'Savory, donut-shaped lentil fritters, crispy outside, soft inside.', price: 100, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'vegan'], hint: 'medu vada' },
+      { id: '3-2', name: 'Chilli Gobi', description: 'Crispy cauliflower florets tossed in a spicy, tangy sauce.', price: 220, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'chilli gobi' },
+      { id: '3-3', name: 'Podi Idli', description: 'Mini steamed rice cakes tossed in a spicy powder and ghee.', price: 140, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'podi idli' },
     ],
   },
   {
@@ -81,9 +81,9 @@ export const restaurants: Restaurant[] = [
     latitude: 22.5726,
     longitude: 88.3639,
     menu: [
-      { id: '4-1', name: 'Macher Jhol', description: 'Traditional Bengali fish curry.', price: 350, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'fish curry' },
-      { id: '4-2', name: 'Kosha Mangsho', description: 'Slow-cooked spicy mutton curry.', price: 580, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'mutton curry' },
-      { id: '4-3', name: 'Luchi Alur Dom', description: 'Fluffy fried bread with spicy potato curry.', price: 250, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'alur dom' },
+      { id: '4-1', name: 'Fish Fry', description: 'Crumb-coated Bhetki fish fillet, deep-fried to perfection.', price: 300, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'fish fry' },
+      { id: '4-2', name: 'Mochar Chop', description: 'Spiced banana blossom croquettes, a Bengali delicacy.', price: 180, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'mochar chop' },
+      { id: '4-3', name: 'Beguni', description: 'Thinly sliced eggplant dipped in gram flour batter and fried.', price: 120, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'vegan'], hint: 'beguni eggplant' },
     ],
   },
     {
@@ -97,9 +97,9 @@ export const restaurants: Restaurant[] = [
     latitude: 30.7333,
     longitude: 76.7794,
     menu: [
-      { id: '5-1', name: 'Amritsari Kulcha', description: 'Stuffed flatbread served with chole (chickpea curry).', price: 300, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'amritsari kulcha' },
-      { id: '5-2', name: 'Tandoori Chicken', description: 'Chicken marinated in yogurt and spices, roasted in a tandoor.', price: 480, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg', 'gluten-free'], hint: 'tandoori chicken' },
-      { id: '5-3', name: 'Sarson da Saag', description: 'Mustard greens curry served with cornmeal flatbread.', price: 350, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian', 'gluten-free'], hint: 'sarson saag' },
+      { id: '5-1', name: 'Paneer Pakora', description: 'Cottage cheese slices battered and deep-fried.', price: 200, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'paneer pakora' },
+      { id: '5-2', name: 'Hara Bhara Kebab', description: 'Patties made from spinach, peas, and potatoes.', price: 220, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'hara bhara kebab' },
+      { id: '5-3', name: 'Chilli Chicken Dry', description: 'Indo-Chinese style spicy chicken stir-fry.', price: 320, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'chilli chicken' },
     ],
   },
   {
@@ -113,9 +113,9 @@ export const restaurants: Restaurant[] = [
     latitude: 15.4909,
     longitude: 73.8278,
     menu: [
-      { id: '6-1', name: 'Fish Curry Rice', description: 'Classic Goan fish curry with steamed rice.', price: 400, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'goan fish' },
-      { id: '6-2', name: 'Pork Vindaloo', description: 'Spicy and tangy pork curry.', price: 520, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'pork vindaloo' },
-      { id: '6-3', name: 'Bebinca', description: 'Traditional multi-layered Goan pudding.', price: 200, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'bebinca dessert' },
+      { id: '6-1', name: 'Prawn Rava Fry', description: 'Semolina-coated prawns, shallow-fried until crisp.', price: 380, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'prawn fry' },
+      { id: '6-2', name: 'Chorizo Pao', description: 'Spicy Goan sausage stuffed in a local bread roll.', price: 250, image: 'https://placehold.co/300x200.png', dietaryTags: ['non-veg'], hint: 'chorizo pao' },
+      { id: '6-3', name: 'Vegetable Rissois', description: 'Crispy, crescent-shaped pastries with a vegetable filling.', price: 180, image: 'https://placehold.co/300x200.png', dietaryTags: ['vegetarian'], hint: 'vegetable pastry' },
     ],
   },
 ];
